@@ -15,18 +15,28 @@
 
 通过 eslint/stylelint 进行代码检查，通过 prettier 进行代码格式化，所有配置已经设置好，按 vscode 的提示编写代码即可。
 
-## GIT提交规范
+## Git 提交规范
 
-### 格式
+!> Git 提交的原则是`每次提交只做一件事`，不要提交两个或两个以上功能的变更。`严谨`意义不明确的描述，如 "修改了一些bug"、"调整了样式" 等。
 
-git commit 格式只能是以下两种：
+Git 提交时可以输入 `Subject` 和 `Description` 两项描述，下面是 Fork 客户端的提交实例：
 
-- `subject`:🈳`description`
-- `subject`(`scope`):🈳`description`
+![Git Commit Example](./assets/git-commit-example.png ':class=doc-image')
 
-### subject
+下面是 Surge Admin 的提交记录截图：
 
-subject 种类以及含义如下：
+![Surge Admin Commit Example](./assets/surge-admin-commit-example.png ':class=doc-image')
+
+### Subject 的格式
+
+`Subject` 必须是英文，表达清晰准确，不允许中文，不允许换行，不能超过100个字，格式只能是以下两种：
+
+- `主题`:🈳`概要说明`
+- `主题`(`作用域`):🈳`概要说明`
+
+##### 主题
+
+主题的种类以及含义如下：
 
 - feat: 新功能
 - fix: 修复问题
@@ -44,31 +54,14 @@ subject 种类以及含义如下：
 - sync: 同步操作
 - other: 其它
 
-### scope
+##### 作用域
 
-scope 是可选的，用于指定 commit 影响的范围。比如 login、user、api、i18n 等。我们的原则是表达通顺的情况下尽量使用它，这样有利于阅读。
+作用域是可选的，用于指定 commit 影响的范围。比如 login、user、api、i18n 等。我们的原则是表达通顺的前提下尽量使用它，这样有利于阅读。
 
-### description
+##### 概要说明
 
-description 必须是英文，不能包含中文，不能以大写字母开头。
+概要说明必须是英文，不能以大写字母开头，表达清晰准确，不能包含中文。
 
-### 下面是几个例子
+### Description 的格式
 
-```
-feat: add login page
-feat(login): login page add forgot password
-fix(login): login page forgot password reset password button not working
-fix(login): the login page color is confused in dark mode
-fix(currentAccount): correct the "errorCollector" import error
-docs: update the project README
-style(api): format the code
-chore: update the project dependencies
-refactor(i18n): adjust "error" to the first row
-feat(timezone): supports dark mode
-```
-
-### Surge Admin 实例
-
-下面是 Surge Admin 的提交实例截图：
-
-![Surge Admin Commit Example](./assets/surge-admin-commit-example.png ':class=doc-image')
+`Description` 是可选项。必须是英文，表达清晰准确，不允许中文，`允许`换行，长度没有限制。
