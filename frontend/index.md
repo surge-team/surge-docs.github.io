@@ -1,6 +1,5 @@
 - [简介](README.md)
 - [开发规范](development-specification.md)
-- [项目结构](project-structure.md)
 - [Surge Framework](surge-framework.md)
 - [Surge Admin](surge-admin.md)
 - [Surge H5 And MiniApp](surge-h5.md)

@@ -1,1 +1,55 @@
 # Surge Admin
+
+## 项目结构
+
+- `.husky` Git 提交规范
+- `.vscode` VSCode 开发规范
+- `config` Vite 配置
+- `library` 库文件
+  - `compute_md5` Rust开发的MD5计算库，封装为WebAssembly模块
+  - `surge` Surge Framework 核心代码
+- `src` 项目源码
+  - `assets` 静态资源，包括图片、字体、全局样式表等
+    - `images` 图片
+    - `styles` 全局样式表
+  - `config` 存放App配置或默认参数
+    - `routes` 路由配置
+    - `appSettings.ts` App特性开关
+    - `defaultSettings.ts` 用户个性化设置的默认值
+  - `i18n` 国际化配置
+    - `en-US` 英文配置
+    - `ja-JP` 日文配置
+    - `zh-CN` 中文配置
+    - `index.ts` 国际化配置入口
+  - `library` Hooks、状态管理、Utils、Vue指令等各类与视图无关的代码
+    - `currentAccount` 当前账号状态管理工具
+    - `errorHandler` 错误处理工具
+    - `routerManager` 路由实例及管理工具
+    - `permissionManager.ts` 权限管理工具
+    - `useResponsiveState.ts` 网页响应式管理工具
+    - `utils.ts` 工具函数
+  - `services` 存放第三方服务，如API、WebSocket、WebWorker等
+    - `private` 本App私有API
+  - `views` 页面视图组件
+    - `_components` 公共组件库
+    - `_layouts` 布局组件
+    - `_not-found` 404页面
+    - `_redirect` 重定向页面
+    - `login` 登录页面
+    - `...` 其他页面
+- `.env.development` 开发环境变量
+- `.env.production` 生产环境变量
+- `.eslintignore` ESLint 忽略文件
+- `.eslintrc.js` ESLint 配置
+- `.gitignore` Git 忽略文件
+- `.prettierignore` Prettier 忽略文件
+- `.prettierrc.js` Prettier 配置
+- `.stylelintrc.js` Stylelint 配置
+- `babel.config.js` Babel 配置
+- `commitlint.config.js` Commitlint 配置
+- `components.d.ts` VUE 全局组件类型声明
+- `index.html` 入口文件
+- `package.json` 项目配置
+- `pnpm-lock.yaml` pnpm 锁定文件
+- `shims-tsx.d.ts` TSX 类型声明
+- `tsconfig.json` TS 配置
