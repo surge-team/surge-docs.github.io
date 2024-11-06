@@ -119,9 +119,9 @@ Surge Admin 通过 `currentAccount` 模块统一管理登录账号信息，包�
 
 ## 页面响应式布局
 
-Surge Admin 通过 `assets/style/breakpoints.less` 文件定义了不同设备的屏幕尺寸断点，开发者可以在页面样式中直接引用这些断点变量来实现响应式布局。
+Surge Admin 通过 `assets/style/breakpoints.less` 文件定义了不同设备的屏幕尺寸断点，开发者可以在页面样式中直接引用这些断点变量来实现响应式布局。可以参考login页面的源代码(`src/views/login/index.vue`)。
 
-同时，我们还提供了 `useResponsiveState.ts` 响应式状态管理模块，方便开发者在 Vue3 组件中监听和响应屏幕尺寸的变化。通过这种方式，可以更优雅地实现页面的自适应布局。
+同时，我们还提供了 `useResponsiveState.ts` 响应式状态管理模块，方便开发者在 Vue3 组件中监听和响应屏幕尺寸的变化。通过这种方式，可以更优雅地实现页面的自适应布局。可以参考layout页面的源代码(`src/views/_layout/default-layout.vue`)。
 
 ## Services
 
