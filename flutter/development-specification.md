@@ -34,10 +34,6 @@ Git 提交时可以输入 `Subject` 和 `Description` 两项描述，下面是 F
 - build: 构建过程或辅助工具的变动
 - ci: 持续集成相关
 - revert: 回滚到某个 commit
-- merge: 合并分支
-- release: 发布新版本
-- sync: 同步操作
-- other: 其它
 
 ##### 作用域
 
