@@ -97,9 +97,22 @@ Surge Admin 采用 vue-i18n 的国际化方案，支持中、英、日三种语�
 
 ## 错误处理
 
-Surge Admin 继承了 Surge Framework 的[通用错误处理](surge-framework#通用错误处理)机制。详细实现请参考 `src/library/errorHandler` 目录。
+Surge Admin 继承了 Surge Framework 的[通用错误处理](surge-framework#通用错误处理)机制。
 
-值得注意的是，当 axios 响应拦截器检测到 token 无效或过期(INVALID_OR_EXPIRED_TOKEN)时，系统会自动登出并刷新页面，随后重定向至登录界面。相关代码可查看 `src/services/private/index.ts`。
+内置的错误处理规则：
+
+- 当 axios 响应拦截器检测到 token 无效或过期(INVALID_OR_EXPIRED_TOKEN)时，系统会自动登出并刷新页面，随后重定向至登录界面。相关代码可查看 `src/services/private/index.ts`。
+- 当 axios 响应拦截器检测到其它错误码时，会抛出 `PrivateApiError` 错误，并弹出错误提示。相关代码可查看 `src/services/private/privateApiError.ts`。
+- 表单校验错误时，如无特殊需要，一定要抛出 `FormValidationError` 错误，它会弹出错误提示。
+```typescript
+const handleSubmit = async ({ errors }: { errors: any }) => {
+  if (errors) throw new FormValidationError();
+
+  visibleConfirm.value = true;
+};
+```
+
+更多实现细节请参考 `src/library/errorHandler` 目录中代码。
 
 ## 账号管理
 
