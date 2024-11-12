@@ -71,7 +71,7 @@ tsconfig.json 中添加以下配置：
 该组件适合身份认证、用户资料、个性化配置等信息的存取及跨页面共享，具备以下特性：
 
 - 可以自定义通道名称，以区分不同的数据类别
-- 支持 LocalStorage/SessionStorage 持久化存储，或者相互切换
+- 支持 LocalStorage/SessionStorage/Cookie(浏览器关闭时清空Cookie) 持久化存储，或者相互切换
 - 支持数据变更的事件通知
 - 支持同域跨页面的数据变更通知
 - vue/useShareDataManagerStore.ts 中提供了 Vue3 的响应式数据管理方案
