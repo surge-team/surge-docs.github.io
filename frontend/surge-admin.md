@@ -61,6 +61,11 @@
 - 特殊用途的文件/目录使用下划线(`_`)作为前缀，例如`src/views/_layout/`
 - 国际化相关的文件/目录需遵循locale标准格式：使用连字符(`-`)连接，语言代码小写，地区代码大写，如`zh-CN`
 
+## 状态命名规范
+
+- 有持久化需求的用Store结尾，如：authStore
+- 没有持久化需求的用State结尾，如：settingsState
+
 ## 路由
 
 Surge Admin 采用纯本地路由配置方案，在 Arco Pro 路由（基于 `vue-router`）的基础上进行了深度优化。该方案完全摒弃了服务端路由的概念，并与 `permissionManager.ts` 实现了无缝集成。
