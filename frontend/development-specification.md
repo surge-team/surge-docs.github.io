@@ -15,6 +15,20 @@
 
 通过 eslint/stylelint 进行代码检查，通过 prettier 进行代码格式化，所有配置已经设置好，按 vscode 的提示编写代码即可。
 
+## Git 配置
+
+在首次克隆代码前，先使用以下命令配置 Git，以确保换行符一致：
+
+```shell
+git config --global core.autocrlf input
+```
+
+使用以下命令验证设置是否成功。如果输出 `input`，则说明设置成功。
+
+```shell
+git config --global --get core.autocrlf
+```
+
 ## Git 提交规范
 
 !> Git 提交的原则是`每次提交只做一件事`，不要提交两个或两个以上功能的变更。`严禁`意义不明确的描述，如 "修改了一些bug"、"调整了样式" 等。
