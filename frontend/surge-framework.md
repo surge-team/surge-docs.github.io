@@ -54,6 +54,7 @@ tsconfig.json 中添加以下配置：
 ## Http 请求
 
 > surge/http/*
+>
 > surge/vue/useAsyncState.ts
 
 这是对 [axios](https://github.com/axios/axios) 的二次封装，主要做了以下优化：
@@ -66,6 +67,10 @@ tsconfig.json 中添加以下配置：
 可以参考 [Surge Admin 源码](https://github.com/surge-team/surge-admin) 中的 `src/services` 目录，了解具体的使用方式。
 
 ## WebSocket 客户端
+
+> surge/webSocketClient/index.ts
+>
+> surge/webSocketClient/webSocketClientError.ts
 
 ### 功能概述
 `WebSocketClient` 是一个封装了 WebSocket 客户端功能的类，提供以下核心能力：
@@ -139,6 +144,8 @@ client.close();
 ```
 
 ## WebSocket 聊天客户端
+
+> surge/webSocketClient/chatClient.ts
 
 ### 功能概述
 `ChatClient` 继承自 `WebSocketClient`，提供聊天特定功能：
