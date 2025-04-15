@@ -2,5 +2,4 @@
 - [开发规范](development-specification.md)
 - [Surge Framework](surge-framework.md)
 - [Surge Admin](surge-admin.md)
-- [Surge H5 And MiniApp](surge-h5.md)
-- [Surge PC Web](surge-web.md)
+- [Surge H5](surge-h5.md)

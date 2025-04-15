@@ -2,11 +2,13 @@
 
 !> 本文档主要介绍 Surge Frontend 的架构设计和使用方法，可能缺少详细的API说明。建议结合源码和实际项目案例一起阅读，以便更好地理解和应用。
 
-Surge Frontend 是 Surge 项目的核心部分，主要负责为前端项目提供基础的开发框架和工具。由以下4部分组成。
+Surge Frontend 是 Surge 项目的核心部分，主要负责为前端项目提供基础的开发框架和工具。
+
+[filename](./assets/surge-frontend.drawio ':include :type=code')
 
 ### Surge Framework
 
-前端基础框架，采用纯TypeScript开发，提供了 Http 请求、共享数据管理、通用错误处理、权限认证、工具库等核心功能。框架设计充分考虑了通用性，可无缝对接React、Vue、Angular等主流前端框架以及任意UI组件库。
+前端基础框架，采用纯TypeScript开发，提供了 Http 请求、WebSocket客户端、共享数据管理、通用错误处理、权限认证、工具库等核心功能。框架设计充分考虑了通用性，可无缝对接React、Vue、Angular等主流前端框架以及任意UI组件库。
 
 进入 [Surge Framework](surge-framework.md) 查看详情。
 
@@ -25,12 +27,9 @@ Surge Admin 作为基础框架，不仅为 Mini 基盘和 MiniApp 团队的未�
 
 ### Surge H5
 
-为 Mobile H5 和 MiniApp 应用提供开发框架，基于Surge Framework开发，采用Vue3、Tailwind CSS、Vue Router、i18n等技术栈。
+为 PC Web、Mobile Web 和 MiniApp(HLS) 应用提供的开发框架，基于Surge Framework开发：
 
-目前正在开发中。
+- 技术层面：技术栈包括 Surge Framework、Vue3、TailwindCSS 3.x、flyonui 1.x 和 i18n 等
+- 兼容性：支持chrome/60等低版本浏览器，Android 7、iOS 14 以上移动设备
 
-### Surge Web
-
-为 PC Web 应用提供开发框架，基于Surge Framework开发，采用Vue3、Tailwind CSS、Vue Router、i18n等技术栈。
-
-目前正在开发中。
+进入 [Surge H5](surge-h5.md) 查看详情。

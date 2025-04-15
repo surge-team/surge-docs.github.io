@@ -1,5 +1,7 @@
 # Surge Framework
 
+前端基础框架，采用纯TypeScript开发，提供了 Http 请求、WebSocket客户端、共享数据管理、通用错误处理、权限认证、工具库等核心功能。框架设计充分考虑了通用性，可无缝对接React、Vue、Angular等主流前端框架以及任意UI组件库。
+
 ## 安装方式
 
 目前 Surge Framework 没有以npm包的形式发布，而是直接集成到了项目中。
@@ -62,6 +64,160 @@ tsconfig.json 中添加以下配置：
 - 配合 `useAsyncState` 简化 Vue3 项目异步请求的编写逻辑，获取isLoading、isReady等状态
 
 可以参考 [Surge Admin 源码](https://github.com/surge-team/surge-admin) 中的 `src/services` 目录，了解具体的使用方式。
+
+## WebSocket 客户端
+
+### 功能概述
+`WebSocketClient` 是一个封装了 WebSocket 客户端功能的类，提供以下核心能力：
+- 建立 WebSocket 连接并管理连接状态
+- 实现自动重连机制（可配置最大重试次数和间隔）
+- 提供连接事件回调（连接成功、关闭、消息接收、错误）
+- 封装消息发送功能（包含状态验证和错误处理）
+- 支持手动关闭连接
+- 提供连接状态查询
+
+### 错误类型
+```typescript
+export const Errors = {
+  SEND_UNCONNECTED: 'WSC_SEND_UNCONNECTED',      // 在未连接状态下尝试发送消息
+  SEND_UNKNOWN_ERROR: 'WSC_SEND_UNKNOWN_ERROR',  // 消息发送时发生未知错误
+  UNKNOWN_ERROR: 'WSC_UNKNOWN_ERROR'             // 通用WebSocket错误
+};
+```
+
+### 配置选项
+| 参数名 | 类型 | 必填 | 默认值 | 描述 |
+|--------|------|------|--------|------|
+| url | string \| URL | 是 | - | WebSocket服务器地址 |
+| protocols | string \| string[] | 否 | - | 子协议 |
+| maxReconnectAttempts | number | 否 | 3 | 最大重连尝试次数 |
+| reconnectInterval | number | 否 | 3000 | 重连间隔(毫秒) |
+
+### 事件处理器
+| 处理器 | 参数 | 描述 |
+|--------|------|------|
+| connectedHandler | (client: WebSocketClient) => void | 连接成功时触发 |
+| closeHandler | (isManualClose: boolean, client: WebSocketClient) => void | 连接关闭时触发 |
+| messageHandler | (data: string, client: WebSocketClient) => void | 收到消息时触发 |
+| errorHandler | (error: WebSocketClientError, client: WebSocketClient) => void | 发生错误时触发 |
+
+### 核心方法
+#### `send(data: string)`
+发送消息到服务器
+• **参数**:
+  • `data`: 要发送的消息内容
+• **可能抛出的错误**:
+  • `WSC_SEND_UNCONNECTED`: 未连接状态下尝试发送
+  • `WSC_SEND_UNKNOWN_ERROR`: 发送过程中发生未知错误
+
+#### `close()`
+手动关闭连接
+• 设置`isManualClose`标志防止自动重连
+• 触发`closeHandler`回调
+
+#### `status`
+获取当前连接状态
+• **返回值**: `number | undefined`
+  • `0` (CONNECTING): 连接中
+  • `1` (OPEN): 已连接
+  • `2` (CLOSING): 关闭中
+  • `3` (CLOSED): 已关闭
+  • `undefined`: 未初始化
+
+### 使用示例
+```typescript
+const client = new WebSocketClient({
+  url: 'ws://example.com',
+  maxReconnectAttempts: 5,
+  reconnectInterval: 5000,
+  connectedHandler: (client) => console.log('Connected'),
+  messageHandler: (data) => console.log('Received:', data)
+});
+
+client.send('Hello');
+client.close();
+```
+
+## WebSocket 聊天客户端
+
+### 功能概述
+`ChatClient` 继承自 `WebSocketClient`，提供聊天特定功能：
+• 扩展基础WebSocket客户端以支持聊天协议
+• 实现群组加入/离开功能（带操作跟踪）
+• 提供结构化消息解析和基于事件的处理
+• 为所有操作生成唯一actionId
+
+### 扩展的错误类型
+```typescript
+export const ChatErrors = {
+  ...Errors,
+  INVALID_MESSAGE_DATA: 'WSCC_INVALID_MESSAGE_DATA',  // 消息JSON格式无效
+  INVALID_MESSAGE_EVENT: 'WSCC_INVALID_MESSAGE_EVENT' // 无法识别的事件类型
+};
+```
+
+### 响应事件类型
+```typescript
+export const ChatResponseEvents = {
+  JOINED_GROUP: 'join',    // 加入群组
+  LEAVED_GROUP: 'leave',   // 离开群组
+  MESSAGE: 'message',      // 聊天消息
+  ERROR: 'error'           // 错误响应
+};
+```
+
+### 配置选项
+继承自`WebSocketClient`的所有选项，并替换以下处理器：
+
+| 处理器 | 参数 | 描述 |
+|--------|------|------|
+| joinedGroupHandler | (groupName: string, payload: any, actionId: string, client: ChatClient) => void | 成功加入群组时触发 |
+| leavedGroupHandler | (groupName: string, payload: any, actionId: string, client: ChatClient) => void | 成功离开群组时触发 |
+| chatMessageHandler | (payload: any, actionId: string, client: ChatClient) => void | 收到聊天消息时触发 |
+
+### 核心方法
+#### `joinGroup(groupName: string): string`
+请求加入聊天群组
+• **参数**:
+  • `groupName`: 目标群组名称
+• **返回值**: 操作ID (用于跟踪此操作)
+
+#### `leaveGroup(groupName: string): string`
+请求离开聊天群组
+• **参数**:
+  • `groupName`: 目标群组名称
+• **返回值**: 操作ID (用于跟踪此操作)
+
+#### `chat(payload: any): string`
+发送聊天消息
+• **参数**:
+  • `payload`: 消息内容(将被JSON序列化)
+• **返回值**: 操作ID (用于跟踪此操作)
+
+### 使用示例
+```typescript
+const chat = new ChatClient({
+  url: 'wss://chat.example.com',
+  joinedGroupHandler: (group, payload, actionId) => 
+    console.log(`Joined ${group}`, payload),
+  chatMessageHandler: (payload) => 
+    console.log('Message:', payload)
+});
+
+const actionId = chat.joinGroup('general');
+chat.chat({ text: 'Hello world' });
+```
+
+### 消息结构
+```json
+{
+  "event": "join|leave|message|error",
+  "actionId": "唯一操作ID",
+  "groupName": "群组名称(可选)",
+  "payload": {}, // 有效负载(可选)
+  "error": { "code": "错误代码" } // 仅当event=error时存在
+}
+```
 
 ## 共享数据管理器
 
@@ -160,6 +316,8 @@ console.log(permissionValidator.checkPermissions('*')); // false
 
 // 定义一个私有的API错误类型
 class PrivateApiError extends Error {
+  static readonly errorName = 'PrivateApiError';
+
   code: string;
 
   constructor(error: any) {
