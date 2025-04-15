@@ -1,4 +1,4 @@
-# Surge H5 And MiniApp
+# Surge H5
 
 为 PC Web、Mobile Web 和 MiniApp(HLS) 应用提供的开发框架，基于Surge Framework开发：
 
@@ -119,3 +119,11 @@ Surge H5 使用 Surge Framework 提供的 [Http 请求库](surge-framework#http-
 #### WebSocket Client
 
 Surge H5 使用 Surge Framework 提供的 [WebSocket 客户端](surge-framework#websocket-客户端) 来实现与 WebSocket 服务器的通信。业务代码应该存放到 `src/services` 目录下，以 `ws` 为前缀的文件夹名称表示该文件夹下的代码是 WebSocket 相关的。
+
+## 低版本 Android Webview 远程调试
+
+Surge H5 使用 Vite 编译 ，script文件通过 `<script module>` 标签引入，而低版本 Android Webview 不支持 module 特性，所以 `earlier-version-of-android-webview` 分支引入了 `@vitejs/plugin-legacy` 插件解决该问题。
+
+因为该插件仅在编译时有效，dev 热更新无效，因此需要通过 `pnpm run preview:xxx` 命令启动预览服务，然后才能进行低版本 Android Webview 的远程调试。
+
+这样做虽然不支持热更新，但比打包成hls文件后，再手动上传到mini基盘开发者管理Site方便的多。
