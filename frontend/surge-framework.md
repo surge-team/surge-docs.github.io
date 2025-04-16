@@ -65,15 +65,6 @@ tsconfig.json 中添加以下配置：
 - 配合 `useAsyncState` 简化 Vue3 项目异步请求的编写逻辑，获取isLoading、isReady等状态
 
 可以参考 [Surge Admin 源码](https://github.com/surge-team/surge-admin) 中的 `src/services` 目录，了解具体的使用方式。
-> surge/webSocketClient/index.ts
->
-> surge/webSocketClient/webSocketClientError.ts
-
-我将查看 WebSocket 客户端的代码，然后为您编写详细的中文说明文档。
-
-
-Read file: library/surge/webSocketClient/index.ts
-基于代码分析，我将为您编写一个详细的 WebSocket 客户端说明文档：
 
 ## WebSocket 客户端
 
@@ -232,8 +223,6 @@ const Errors = {
 3. 实现适当的错误处理逻辑，提高应用稳定性
 4. 注意处理消息的序列化和反序列化
 5. 在发送消息前检查连接状态
-
-好的，我将重新组织文档结构，使用"##"作为第一级标题：
 
 ## 聊天客户端
 
