@@ -69,6 +69,20 @@ Git中存在两个分支：
 - `tailwind.config.js` Tailwind 配置
 - `tsconfig.json` TS 配置
 
+## HLS 编译
+
+可以使用以下命令打包HLS文件：
+
+```bash
+pnpm run build-hls # PROD频道
+pnpm run build-hls:dev # DEV频道
+pnpm run build-hls:test # TEST频道
+pnpm run build-hls:stg # STG频道
+pnpm run build-hls:uat # UAT频道
+```
+
+默认是这 5 个频道，可以修改 `package.json` 文件调整频道数量和名称。
+
 ## 路由
 
 Surge H5 使用 Vue Router 作为路由管理器。
